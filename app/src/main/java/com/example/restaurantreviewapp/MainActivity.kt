@@ -5,7 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import com.example.restaurantreviewapp.ui.screens.RestaurantListScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.restaurantreviewapp.ui.navigation.AppNavGraph
 import com.example.restaurantreviewapp.ui.theme.RestaurantReviewAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,12 +14,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RestaurantReviewAppTheme {
-                Surface(
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    RestaurantListScreen()
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    val navController = rememberNavController()
+                    AppNavGraph(navController = navController)
                 }
             }
         }
+
     }
 }

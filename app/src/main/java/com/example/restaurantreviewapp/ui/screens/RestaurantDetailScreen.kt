@@ -12,6 +12,7 @@ import com.example.restaurantreviewapp.model.Restaurant
 import com.example.restaurantreviewapp.ui.components.RestaurantItem
 import com.example.restaurantreviewapp.ui.components.ReviewItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantDetailScreen(
     restaurant: Restaurant

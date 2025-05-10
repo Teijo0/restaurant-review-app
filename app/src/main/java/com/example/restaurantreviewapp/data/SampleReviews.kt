@@ -1,7 +1,5 @@
 package com.example.restaurantreviewapp.data
 
-package com.example.restaurantreviewapp.data
-
 import com.example.restaurantreviewapp.model.Review
 import java.time.LocalDate
 

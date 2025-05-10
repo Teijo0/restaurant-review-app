@@ -1,60 +1,44 @@
 package com.example.restaurantreviewapp.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.restaurantreviewapp.data.sampleRestaurants
 import com.example.restaurantreviewapp.ui.components.RestaurantItem
-import com.example.restaurantreviewapp.ui.theme.RestaurantReviewAppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)  // Tämän avulla kokeelliset API:t toimivat
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantListScreen(
-    onRefresh: () -> Unit = {}, // Voidaan laajentaa myöhemmin
-    onMenuClick: () -> Unit = {}
+    onRestaurantClick: (Int) -> Unit // Funktio ravintolan klikkaukselle
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Restaurants") },
-                navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = onRefresh) {
-                        Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh")
+                title = { Text("Restaurants") } // Otsikko
+            )
+        },
+        content = { paddingValues ->
+            LazyColumn(
+                modifier = Modifier
+                    .padding(paddingValues) // Sisältö ja padding
+                    .fillMaxSize() // Täyttää koko tilan
+            ) {
+                itemsIndexed(sampleRestaurants) { index, restaurant ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth() // Täyttää koko leveyden
+                            .padding(8.dp) // Lisää paddingia
+                            .clickable { onRestaurantClick(index) } // Kutsuu navigointifunktiota
+                    ) {
+                        RestaurantItem(restaurant = restaurant) // Näyttää ravintolan tiedot
                     }
                 }
-            )
-        }
-    ) { paddingValues ->
-        LazyColumn(
-            contentPadding = paddingValues,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            items(sampleRestaurants) { restaurant ->
-                RestaurantItem(restaurant = restaurant)
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RestaurantListScreenPreview() {
-    RestaurantReviewAppTheme {
-        RestaurantListScreen()
-    }
+    )
 }
