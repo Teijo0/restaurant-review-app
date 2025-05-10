@@ -1,5 +1,7 @@
 package com.example.restaurantreviewapp
 
+import com.example.restaurantreviewapp.model.Rating
+import com.example.restaurantreviewapp.model.Restaurant
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.Call

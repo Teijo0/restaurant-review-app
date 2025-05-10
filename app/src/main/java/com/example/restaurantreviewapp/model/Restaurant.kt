@@ -1,6 +1,7 @@
 package com.example.restaurantreviewapp.model
 
 data class Restaurant(
+    val id: Int,
     val name: String,
     val rating: Double,
     val reviewCount: Int,

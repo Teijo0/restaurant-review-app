@@ -4,6 +4,7 @@ import com.example.restaurantreviewapp.model.Restaurant
 
 val sampleRestaurants = listOf(
     Restaurant(
+        id = 1,
         name = "Mahtava Ravintola",
         rating = 4.5,
         reviewCount = 132,
@@ -14,6 +15,7 @@ val sampleRestaurants = listOf(
         imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cheeseburger.jpg/960px-Cheeseburger.jpg"
     ),
     Restaurant(
+        id = 2,
         name = "Burger Heaven",
         rating = 4.0,
         reviewCount = 89,

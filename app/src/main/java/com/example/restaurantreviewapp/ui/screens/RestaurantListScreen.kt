@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.restaurantreviewapp.viewmodel.RestaurantViewModel
+import androidx.compose.foundation.clickable
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +46,7 @@ fun RestaurantListScreen(
                                     .fillMaxWidth()
                                     .padding(8.dp)
                                     .clickable { onRestaurantClick(restaurant.id) }
+
                             ) {
                                 // Näytetään ravintolan tiedot
                                 Text(
