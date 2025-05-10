@@ -8,4 +8,8 @@ import dagger.hilt.android.HiltAndroidApp
  * Tämä tarvitaan Hiltin toimintaan projektissa.
  */
 @HiltAndroidApp
-class MyApplication : Application()
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+    }
+}

@@ -1,36 +1,31 @@
-package com.example.restaurantreviewapp;
+package com.example.restaurantreviewapp
 
-public class RestaurantApi {
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import java.util.List;
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.Call
+
+interface RestaurantApi {
 
     /**
-     * Retrofit-rajapinta ravintoloiden API-kutsuja varten.
+     * Hakee kaikki ravintolat ja niiden arvosanat.
+     * @return lista ravintoloista
      */
-    public interface RestaurantApi {
+    @GET("/api/restaurants/ratings")
+    fun getRestaurants(): Call<List<Restaurant>>
 
-        /**
-         * Hakee kaikki ravintolat ja niiden arvosanat.
-         * @return lista ravintoloista
-         */
-        @GET("/api/restaurants/ratings")
-        Call<List<Restaurant>> getRestaurants();
+    /**
+     * Hakee yksittäisen ravintolan tiedot.
+     * @param resid ravintolan id
+     * @return ravintolan tiedot
+     */
+    @GET("/api/restaurants/{resid}")
+    fun getRestaurantById(@Path("resid") resid: Int): Call<Restaurant>
 
-        /**
-         * Hakee yksittäisen ravintolan tiedot.
-         * @param resid ravintolan id
-         * @return ravintolan tiedot
-         */
-        @GET("/api/restaurants/{resid}")
-        Call<Restaurant> getRestaurantById(@Path("resid") int resid);
-
-        /**
-         * Hakee ravintolan arvosanat.
-         * @param resid ravintolan id
-         * @return lista arvosanoista
-         */
-        @GET("/api/restaurants/{resid}/ratings")
-        Call<List<Rating>> getRatingsByRestaurant(@Path("resid") int resid);
-    }
+    /**
+     * Hakee ravintolan arvosanat.
+     * @param resid ravintolan id
+     * @return lista arvosanoista
+     */
+    @GET("/api/restaurants/{resid}/ratings")
+    fun getRatingsByRestaurant(@Path("resid") resid: Int): Call<List<Rating>>
+}

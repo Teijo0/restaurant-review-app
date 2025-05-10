@@ -1,41 +1,57 @@
 package com.example.restaurantreviewapp.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.restaurantreviewapp.data.sampleRestaurants
-import com.example.restaurantreviewapp.ui.components.RestaurantItem
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.restaurantreviewapp.viewmodel.RestaurantViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantListScreen(
     onRestaurantClick: (Int) -> Unit // Funktio ravintolan klikkaukselle
 ) {
+    // Hakee ViewModelin instanssin
+    val viewModel: RestaurantViewModel = viewModel()
+    val restaurants = viewModel.restaurants.collectAsState().value
+    val errorMessage = viewModel.errorMessage.collectAsState().value
+
+    // Varmistetaan, että tiedot haetaan vain kerran
+    if (restaurants.isEmpty()) {
+        viewModel.fetchRestaurants()
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Restaurants") } // Otsikko
+                title = { Text("Restaurants") }
             )
         },
         content = { paddingValues ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(paddingValues) // Sisältö ja padding
-                    .fillMaxSize() // Täyttää koko tilan
-            ) {
-                itemsIndexed(sampleRestaurants) { index, restaurant ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth() // Täyttää koko leveyden
-                            .padding(8.dp) // Lisää paddingia
-                            .clickable { onRestaurantClick(index) } // Kutsuu navigointifunktiota
-                    ) {
-                        RestaurantItem(restaurant = restaurant) // Näyttää ravintolan tiedot
+            Column(modifier = Modifier.padding(paddingValues)) {
+                if (errorMessage != null) {
+                    Text(text = "Error: $errorMessage")
+                } else {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(restaurants) { restaurant ->
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .clickable { onRestaurantClick(restaurant.id) }
+                            ) {
+                                // Näytetään ravintolan tiedot
+                                Text(
+                                    text = restaurant.name,
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
