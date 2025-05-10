@@ -11,7 +11,7 @@ val sampleRestaurants = listOf(
         priceLevel = "€€",
         address = "Katutie 1, Helsinki",
         isOpen = true,
-        imageUrl = "https://example.com/cheese_burger.jpg"
+        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cheeseburger.jpg/960px-Cheeseburger.jpg"
     ),
     Restaurant(
         name = "Burger Heaven",
@@ -21,6 +21,6 @@ val sampleRestaurants = listOf(
         priceLevel = "€",
         address = "Burgerkatu 5, Espoo",
         isOpen = false,
-        imageUrl = "https://example.com/cheese_burger.jpg"
+        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cheeseburger.jpg/960px-Cheeseburger.jpg"
     )
 )

@@ -27,7 +27,7 @@ fun RestaurantItem(restaurant: Restaurant) {
     ) {
         AsyncImage(
             model = restaurant.imageUrl,
-            contentDescription = null,
+            contentDescription = "Restaurant Image",
             modifier = Modifier
                 .size(100.dp)
                 .clip(RoundedCornerShape(8.dp)),

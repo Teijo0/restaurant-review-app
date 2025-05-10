@@ -10,9 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.restaurantreviewapp.data.sampleRestaurants
 import com.example.restaurantreviewapp.ui.components.RestaurantItem
+import com.example.restaurantreviewapp.ui.theme.RestaurantReviewAppTheme
 
+@OptIn(ExperimentalMaterial3Api::class)  // Tämän avulla kokeelliset API:t toimivat
 @Composable
 fun RestaurantListScreen(
     onRefresh: () -> Unit = {}, // Voidaan laajentaa myöhemmin
@@ -45,5 +48,13 @@ fun RestaurantListScreen(
                 RestaurantItem(restaurant = restaurant)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RestaurantListScreenPreview() {
+    RestaurantReviewAppTheme {
+        RestaurantListScreen()
     }
 }
