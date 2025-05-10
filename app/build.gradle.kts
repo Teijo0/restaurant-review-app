@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -59,5 +61,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0") // AsyncImage
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2") // Tulevaa ViewModelia varten
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
 }
