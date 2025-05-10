@@ -1,9 +1,9 @@
 package com.example.restaurantreviewapp.model
 
-import java.time.LocalDate
+import java.util.Date
 
 data class Review(
     val rating: Double,
     val text: String,
-    val date: LocalDate
+    val date: Date // Vaihdettu LocalDate -> Date
 )

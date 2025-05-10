@@ -10,7 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.restaurantreviewapp.model.Review
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun ReviewItem(review: Review, onDeleteClick: () -> Unit = {}) {
@@ -41,8 +42,13 @@ fun ReviewItem(review: Review, onDeleteClick: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = review.text)
                 Spacer(modifier = Modifier.height(2.dp))
+
+                // Päivämäärän muotoilu
+                val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(review.date)
+
                 Text(
-                    text = "Pvm: ${review.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}",
+                    text = "Pvm: $formattedDate",
                     style = MaterialTheme.typography.labelSmall,
                     color = Color.Gray
                 )
