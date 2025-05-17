@@ -9,6 +9,9 @@ import androidx.compose.material3.Surface
 import androidx.navigation.compose.rememberNavController
 import com.example.restaurantreviewapp.ui.navigation.AppNavGraph
 import com.example.restaurantreviewapp.ui.theme.RestaurantReviewAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

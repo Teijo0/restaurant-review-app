@@ -14,5 +14,3 @@ class MyApplication : Application() {
         super.onCreate()
     }
 }
-
-annotation class HiltAndroidApp
