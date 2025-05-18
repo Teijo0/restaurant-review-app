@@ -19,7 +19,7 @@ import com.example.restaurantreviewapp.model.Restaurant
 import com.example.restaurantreviewapp.R  // tuo R drawable näkyviin
 
 @Composable
-fun RestaurantItem(restaurant: Restaurant) {
+fun RestaurantItem(restaurant: Restaurant, modifier: Modifier) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

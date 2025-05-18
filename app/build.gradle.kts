@@ -70,6 +70,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0") // AsyncImage
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2") // ViewModel
     implementation("androidx.navigation:navigation-compose:2.7.7") // Navigointi
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
 
     // Dagger Hilt ja ViewModel
     implementation("com.google.dagger:hilt-android:$hilt_version")

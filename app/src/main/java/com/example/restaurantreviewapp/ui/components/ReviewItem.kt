@@ -9,12 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.restaurantreviewapp.model.Review
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.restaurantreviewapp.model.Rating
 
 @Composable
-fun ReviewItem(review: Review, onDeleteClick: () -> Unit = {}) {
+fun ReviewItem(review: Rating, onDeleteClick: () -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -27,7 +25,7 @@ fun ReviewItem(review: Review, onDeleteClick: () -> Unit = {}) {
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                    repeat(review.rating.toInt()) {
+                    repeat(review.score.toInt()) {
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = "Star",
@@ -36,22 +34,11 @@ fun ReviewItem(review: Review, onDeleteClick: () -> Unit = {}) {
                         )
                     }
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = review.rating.toString())
+                    Text(text = review.score.toString())
                 }
 
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = review.text)
-                Spacer(modifier = Modifier.height(2.dp))
-
-                // Päivämäärän muotoilu
-                val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                val formattedDate = dateFormat.format(review.date)
-
-                Text(
-                    text = "Pvm: $formattedDate",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color.Gray
-                )
+                Text(text = review.comment)
             }
 
             IconButton(onClick = onDeleteClick) {

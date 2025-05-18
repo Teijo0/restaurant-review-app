@@ -5,18 +5,28 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.restaurantreviewapp.data.sampleReviews
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.restaurantreviewapp.model.Restaurant
+import com.example.restaurantreviewapp.viewmodel.RestaurantViewModel
 import com.example.restaurantreviewapp.ui.components.RestaurantItem
 import com.example.restaurantreviewapp.ui.components.ReviewItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantDetailScreen(
-    restaurant: Restaurant
+    restaurant: Restaurant,
+    viewModel: RestaurantViewModel = hiltViewModel()
 ) {
+    val ratings = viewModel.ratings.collectAsState().value
+    val error = viewModel.errorMessage.collectAsState().value
+
+    if (ratings.isEmpty()) {
+        viewModel.fetchRatingsByRestaurant(restaurant.id)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -31,12 +41,14 @@ fun RestaurantDetailScreen(
             contentPadding = PaddingValues(8.dp)
         ) {
             item {
-                // Näytetään ravintolan tiedot ylhäällä
-                RestaurantItem(restaurant = restaurant)
+                RestaurantItem(
+                    restaurant = restaurant,
+                    modifier = Modifier //
+                )
             }
 
-            items(sampleReviews) { review ->
-                ReviewItem(review = review)
+            items(ratings) { rating ->
+                ReviewItem(review = rating)
             }
 
             item {
@@ -48,6 +60,18 @@ fun RestaurantDetailScreen(
                         .padding(vertical = 8.dp)
                 ) {
                     Text(text = "+ Add Review")
+                }
+            }
+
+            error?.let {
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = it,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
                 }
             }
         }
