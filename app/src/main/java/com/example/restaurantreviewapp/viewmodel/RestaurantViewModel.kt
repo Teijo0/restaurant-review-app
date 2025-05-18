@@ -81,6 +81,33 @@ class RestaurantViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    // Yksittäinen ravintola (kun haetaan suoraan ID:llä)
+    private val _restaurant = MutableStateFlow<Restaurant?>(null)
+    val restaurant: StateFlow<Restaurant?> = _restaurant
+
+    /**
+     * Hakee yksittäisen ravintolan tiedot ID:n perusteella.
+     */
+    fun fetchRestaurantById(id: Int) {
+        viewModelScope.launch {
+            val call = RetrofitClient.restaurantApi.getRestaurantById(id)
+
+            call.enqueue(object : Callback<Restaurant> {
+                override fun onResponse(call: Call<Restaurant>, response: Response<Restaurant>) {
+                    if (response.isSuccessful) {
+                        _restaurant.value = response.body()
+                    } else {
+                        _errorMessage.value = "Failed to fetch restaurant details"
+                    }
+                }
+
+                override fun onFailure(call: Call<Restaurant>, t: Throwable) {
+                    _errorMessage.value = t.message
+                }
+            })
+        }
+    }
+
     /**
      * Tyhjentää virheilmoituksen (esim. kun käyttäjä sulkee virheviestin).
      */

@@ -1,12 +1,12 @@
 package com.example.restaurantreviewapp.ui.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.restaurantreviewapp.data.sampleRestaurants
+import com.example.restaurantreviewapp.model.Restaurant
 import com.example.restaurantreviewapp.ui.screens.RestaurantDetailScreen
 import com.example.restaurantreviewapp.ui.screens.RestaurantListScreen
 import com.example.restaurantreviewapp.viewmodel.RestaurantViewModel
@@ -28,17 +28,27 @@ fun AppNavGraph(navController: NavHostController) {
                 }
             )
         }
+
         composable(Screen.Detail.route) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("restaurantId")?.toIntOrNull()
             val viewModel: RestaurantViewModel = viewModel()
             val restaurantList = viewModel.restaurants.collectAsState().value
+            val fallbackRestaurant = viewModel.restaurant.collectAsState().value
 
             val restaurant = restaurantList.firstOrNull { it.id == id }
 
             if (restaurant != null) {
                 RestaurantDetailScreen(restaurant = restaurant)
+            } else if (id != null) {
+                // Jos ei löydy listalta, hae suoraan back-endistä
+                if (fallbackRestaurant?.id != id) {
+                    viewModel.fetchRestaurantById(id)
+                }
+
+                fallbackRestaurant?.let {
+                    RestaurantDetailScreen(restaurant = it)
+                }
             }
         }
-
     }
 }
